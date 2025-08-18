@@ -1,0 +1,110 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: deckoracle-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: deckoracle_password
+      POSTGRES_DB: deckoracle_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - deckoracle-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: deckoracle-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@deckoracle.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - deckoracle-network
+    profiles:
+      - dev
+      - tools
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: deckoracle-backend
+    volumes:
+      - ./backend:/app
+      - cargo-cache:/usr/local/cargo/registry
+      - cargo-target:/app/target
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: postgresql://postgres:deckoracle_password@postgres:5432/deckoracle_db
+      SERVER_HOST: 0.0.0.0
+      SERVER_PORT: 8080
+      RUST_LOG: debug,tower_http=debug
+      RUST_BACKTRACE: 1
+      CORS_ORIGIN: http://localhost:5173
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - deckoracle-network
+    command: cargo watch -x run
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: deckoracle-frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8080
+    depends_on:
+      - backend
+    networks:
+      - deckoracle-network
+    profiles:
+      - dev
+      - full
+    command: npm run dev -- --host 0.0.0.0
+
+  # Redis for future caching implementation
+  redis:
+    image: redis:7-alpine
+    container_name: deckoracle-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - deckoracle-network
+    profiles:
+      - dev
+      - cache
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+networks:
+  deckoracle-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  cargo-cache:
+  cargo-target:
+  redis_data:

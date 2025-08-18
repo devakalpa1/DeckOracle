@@ -1,0 +1,145 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Rust/Backend
+/backend/target/
+/backend/Cargo.lock
+/backend/.cargo/
+/backend/**/*.rs.bk
+/backend/*.pdb
+/backend/sqlx-data.json
+
+# Node/Frontend
+/frontend/node_modules/
+/frontend/dist/
+/frontend/build/
+/frontend/.cache/
+/frontend/coverage/
+/frontend/*.log
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+/frontend/.pnp
+/frontend/.pnp.js
+
+# Testing
+*.test
+*.spec
+coverage/
+.nyc_output/
+
+# Docker
+*.log
+docker-compose.override.yml
+.docker/
+
+# Database
+*.sql
+!migrations/*.sql
+backup_*.sql
+*.dump
+postgres-data/
+pgdata/
+
+# OS Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Security
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+secrets/
+.secrets/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+
+# Build artifacts
+dist/
+build/
+out/
+target/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Documentation build
+docs/_build/
+docs/.doctrees/
+site/
+
+# Python (for any scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.Python
+venv/
+env/
+
+# Terraform (if used for infrastructure)
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# CI/CD
+.github/actions/*/dist/
+
+# Monitoring
+grafana-storage/
+prometheus-data/
+
+# Package files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Project specific
+/data/
+/uploads/
+/downloads/
+.cache/
