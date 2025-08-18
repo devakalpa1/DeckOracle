@@ -1,4 +1,3 @@
-# Build stage
 FROM rust:1.79-slim AS builder
 
 # Install build dependencies
