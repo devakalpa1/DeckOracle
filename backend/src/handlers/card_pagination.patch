@@ -1,0 +1,52 @@
+// PATCH: backend/src/handlers/card.rs
+// Add pagination support to match frontend expectations
+
+use serde::Deserialize;
+
+#[derive(Deserialize)]
+struct CardsQuery {
+    deck_id: Uuid,
+    limit: Option<i32>,   // ADD: for pagination
+    offset: Option<i32>,  // ADD: for pagination
+}
+
+async fn list_cards(
+    State(state): State<AppState>,
+    UserId(user_id): UserId,
+    Query(query): Query<CardsQuery>,
+) -> Result<Json<PaginatedResponse<Card>>> {
+    let limit = query.limit.unwrap_or(50).min(100); // Max 100 cards per request
+    let offset = query.offset.unwrap_or(0);
+    
+    // Get total count
+    let total = CardService::count_deck_cards(&state.db, query.deck_id, user_id).await?;
+    
+    // Get paginated cards
+    let cards = CardService::list_deck_cards_paginated(
+        &state.db, 
+        query.deck_id, 
+        user_id,
+        limit,
+        offset
+    ).await?;
+    
+    Ok(Json(PaginatedResponse {
+        items: cards,
+        total,
+        page: (offset / limit) + 1,
+        page_size: limit,
+        has_next: (offset + limit) < total,
+        has_previous: offset > 0,
+    }))
+}
+
+// ADD to models/mod.rs:
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PaginatedResponse<T> {
+    pub items: Vec<T>,
+    pub total: i32,
+    pub page: i32,
+    pub page_size: i32,
+    pub has_next: bool,
+    pub has_previous: bool,
+}

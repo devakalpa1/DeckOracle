@@ -1,0 +1,45 @@
+// PATCH: backend/src/handlers/study.rs
+// Update to accept user_answer and is_correct fields from frontend
+
+use serde::Deserialize;
+
+#[derive(Deserialize)]
+struct RecordProgressDto {
+    card_id: Uuid,
+    status: CardStatus,
+    response_time_ms: Option<i32>,
+    user_answer: Option<String>,    // ADD: Accept from frontend
+    is_correct: Option<bool>,        // ADD: Accept from frontend
+}
+
+async fn record_progress(
+    State(state): State<AppState>,
+    UserId(user_id): UserId,
+    Path(session_id): Path<Uuid>,
+    Json(dto): Json<RecordProgressDto>,
+) -> Result<(StatusCode, Json<CardProgress>)> {
+    // Updated to handle new fields
+    let progress = StudyService::record_card_progress_extended(
+        &state.db,
+        session_id,
+        dto.card_id,
+        user_id,
+        dto.status,
+        dto.response_time_ms,
+        dto.user_answer,     // Pass through to service
+        dto.is_correct,      // Pass through to service
+    )
+    .await?;
+    
+    Ok((StatusCode::CREATED, Json(progress)))
+}
+
+// Update models/mod.rs - SubmitCardAnswerDto to match:
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SubmitCardAnswerDto {
+    pub card_id: Uuid,
+    pub status: CardStatus,
+    pub response_time_ms: Option<i32>,
+    pub user_answer: Option<String>,    // NOW ACCEPTED
+    pub is_correct: Option<bool>,       // NOW ACCEPTED
+}

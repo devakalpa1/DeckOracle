@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primaryDark: rgb(18 55 64);
+  --color-primary: rgb(84 154 171);
+  --color-primaryLight: rgb(176 215 225);
+  --color-background: rgb(246 246 246);
+  --color-accent: rgb(241 128 45);
+}
+
+@layer base {
+  body {
+    @apply bg-[rgb(246_246_246)] text-gray-900;
+  }
+}
+
+@layer components {
+  /* Primary button - uses Primary Dark for background */
+  .btn-primary {
+    @apply bg-[rgb(18_55_64)] hover:bg-[rgb(84_154_171)] text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md;
+  }
+
+  /* Secondary button - uses Primary color for border and text */
+  .btn-secondary {
+    @apply bg-white hover:bg-[rgb(176_215_225)]/10 text-[rgb(84_154_171)] border-2 border-[rgb(84_154_171)] font-medium py-2 px-4 rounded-lg transition-all duration-200;
+  }
+
+  /* Accent button - uses Accent color for CTAs */
+  .btn-accent {
+    @apply bg-[rgb(241_128_45)] hover:bg-[rgb(241_128_45)]/90 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg;
+  }
+
+  /* Card component - uses Primary Light for subtle background */
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6 border border-[rgb(176_215_225)]/30 hover:shadow-lg transition-shadow duration-200;
+  }
+
+  /* Card with highlight - uses Primary Light background */
+  .card-highlight {
+    @apply bg-[rgb(176_215_225)]/10 rounded-lg shadow-sm p-6 border border-[rgb(176_215_225)]/50;
+  }
+
+  /* Link styles */
+  .link {
+    @apply text-[rgb(84_154_171)] hover:text-[rgb(18_55_64)] transition-colors duration-200 underline-offset-2 hover:underline;
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    @apply bg-[rgb(84_154_171)];
+  }
+
+  /* Success state */
+  .success {
+    @apply text-[rgb(241_128_45)];
+  }
+}

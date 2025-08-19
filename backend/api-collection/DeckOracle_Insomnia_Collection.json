@@ -1,0 +1,625 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2024-01-01T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "wrk_deckoracle",
+      "parentId": null,
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "name": "DeckOracle API",
+      "description": "API collection for DeckOracle flashcard application",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_base",
+      "parentId": "wrk_deckoracle",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080/api/v1",
+        "auth_token": ""
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url", "auth_token"]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1700000000000,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_dev",
+      "parentId": "env_base",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "name": "Development",
+      "data": {
+        "base_url": "http://localhost:8080/api/v1"
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url"]
+      },
+      "color": "#00ff00",
+      "isPrivate": false,
+      "metaSortKey": 1700000000001,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_staging",
+      "parentId": "env_base",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "name": "Staging",
+      "data": {
+        "base_url": "https://staging-api.deckoracle.com/api/v1"
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url"]
+      },
+      "color": "#ffff00",
+      "isPrivate": false,
+      "metaSortKey": 1700000000002,
+      "_type": "environment"
+    },
+    {
+      "_id": "env_prod",
+      "parentId": "env_base",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "name": "Production",
+      "data": {
+        "base_url": "https://api.deckoracle.com/api/v1"
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url"]
+      },
+      "color": "#ff0000",
+      "isPrivate": false,
+      "metaSortKey": 1700000000003,
+      "_type": "environment"
+    },
+    {
+      "_id": "fld_health",
+      "parentId": "wrk_deckoracle",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "name": "Health",
+      "description": "Health check endpoints",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1700000000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_health_check",
+      "parentId": "fld_health",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/health",
+      "name": "Health Check",
+      "description": "Check if the API is running",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1700000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_folders",
+      "parentId": "wrk_deckoracle",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "name": "Folders",
+      "description": "Folder management endpoints",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1699000000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_create_folder",
+      "parentId": "fld_folders",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/folders",
+      "name": "Create Folder",
+      "description": "Create a new folder",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"My Study Folder\",\n  \"description\": \"Contains all my study materials\",\n  \"color\": \"#549aab\",\n  \"parent_id\": null\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1699000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_folders",
+      "parentId": "fld_folders",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/folders",
+      "name": "List Folders",
+      "description": "Get all folders",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "parent_id",
+          "value": "",
+          "description": "Filter by parent folder ID",
+          "disabled": true
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1698000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_folder",
+      "parentId": "fld_folders",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/folders/{% response 'body', 'req_create_folder', 'b64::JC5pZA==::46b', 'never', 60 %}",
+      "name": "Get Folder",
+      "description": "Get a specific folder by ID",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1697000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_update_folder",
+      "parentId": "fld_folders",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/folders/{% response 'body', 'req_create_folder', 'b64::JC5pZA==::46b', 'never', 60 %}",
+      "name": "Update Folder",
+      "description": "Update a folder",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Updated Folder Name\",\n  \"description\": \"Updated description\",\n  \"color\": \"#f1802d\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1696000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_delete_folder",
+      "parentId": "fld_folders",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/folders/{% response 'body', 'req_create_folder', 'b64::JC5pZA==::46b', 'never', 60 %}",
+      "name": "Delete Folder",
+      "description": "Delete a folder",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1695000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_decks",
+      "parentId": "wrk_deckoracle",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "name": "Decks",
+      "description": "Deck management endpoints",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1698000000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_create_deck",
+      "parentId": "fld_decks",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/decks",
+      "name": "Create Deck",
+      "description": "Create a new deck",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"JavaScript Fundamentals\",\n  \"description\": \"Learn the basics of JavaScript\",\n  \"folder_id\": null,\n  \"tags\": [\"programming\", \"javascript\", \"web\"],\n  \"is_public\": false\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1698000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_decks",
+      "parentId": "fld_decks",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/decks",
+      "name": "List Decks",
+      "description": "Get all decks with pagination",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "folder_id",
+          "value": "",
+          "description": "Filter by folder",
+          "disabled": true
+        },
+        {
+          "name": "page",
+          "value": "1",
+          "description": "Page number"
+        },
+        {
+          "name": "limit",
+          "value": "20",
+          "description": "Items per page"
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1697000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_import_csv",
+      "parentId": "fld_decks",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/decks/{% response 'body', 'req_create_deck', 'b64::JC5pZA==::46b', 'never', 60 %}/import",
+      "name": "Import CSV",
+      "description": "Import cards from CSV file",
+      "method": "POST",
+      "body": {
+        "mimeType": "text/csv",
+        "text": "front,back,tags\n\"What is JavaScript?\",\"A programming language for the web\",\"basics,intro\"\n\"What is a variable?\",\"A container for storing data\",\"basics,variables\"\n\"What is a function?\",\"A reusable block of code\",\"basics,functions\""
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "text/csv"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1696000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_export_csv",
+      "parentId": "fld_decks",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/decks/{% response 'body', 'req_create_deck', 'b64::JC5pZA==::46b', 'never', 60 %}/export",
+      "name": "Export CSV",
+      "description": "Export deck cards to CSV",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1695000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_cards",
+      "parentId": "wrk_deckoracle",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "name": "Cards",
+      "description": "Card management endpoints",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1697000000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_create_card",
+      "parentId": "fld_cards",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/cards",
+      "name": "Create Card",
+      "description": "Create a new card",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"deck_id\": \"{% response 'body', 'req_create_deck', 'b64::JC5pZA==::46b', 'never', 60 %}\",\n  \"front\": \"What is React?\",\n  \"back\": \"A JavaScript library for building user interfaces\",\n  \"tags\": [\"react\", \"frontend\", \"library\"],\n  \"position\": 1\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1697000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_bulk_create_cards",
+      "parentId": "fld_cards",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/cards/bulk",
+      "name": "Bulk Create Cards",
+      "description": "Create multiple cards at once",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"deck_id\": \"{% response 'body', 'req_create_deck', 'b64::JC5pZA==::46b', 'never', 60 %}\",\n  \"cards\": [\n    {\n      \"front\": \"What is HTML?\",\n      \"back\": \"HyperText Markup Language\",\n      \"tags\": [\"web\", \"markup\"]\n    },\n    {\n      \"front\": \"What is CSS?\",\n      \"back\": \"Cascading Style Sheets\",\n      \"tags\": [\"web\", \"styling\"]\n    },\n    {\n      \"front\": \"What is DOM?\",\n      \"back\": \"Document Object Model\",\n      \"tags\": [\"web\", \"javascript\"]\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1696500000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_study",
+      "parentId": "wrk_deckoracle",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "name": "Study Sessions",
+      "description": "Study session endpoints",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1696000000000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_create_session",
+      "parentId": "fld_study",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/study-sessions",
+      "name": "Create Study Session",
+      "description": "Start a new study session",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"deck_id\": \"{% response 'body', 'req_create_deck', 'b64::JC5pZA==::46b', 'never', 60 %}\",\n  \"session_type\": \"review\",\n  \"target_card_count\": 20\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1696000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_next_card",
+      "parentId": "fld_study",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/study-sessions/{% response 'body', 'req_create_session', 'b64::JC5pZA==::46b', 'never', 60 %}/next-card",
+      "name": "Get Next Card",
+      "description": "Get the next card to study",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1695000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_submit_review",
+      "parentId": "fld_study",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/study-sessions/{% response 'body', 'req_create_session', 'b64::JC5pZA==::46b', 'never', 60 %}/cards/{% response 'body', 'req_get_next_card', 'b64::JC5pZA==::46b', 'never', 60 %}/review",
+      "name": "Submit Card Review",
+      "description": "Submit review for a studied card",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"difficulty\": \"medium\",\n  \"time_spent\": 8,\n  \"confidence\": 3\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1694000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_complete_session",
+      "parentId": "fld_study",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/study-sessions/{% response 'body', 'req_create_session', 'b64::JC5pZA==::46b', 'never', 60 %}/complete",
+      "name": "Complete Study Session",
+      "description": "Mark a study session as complete",
+      "method": "POST",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1693000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_session_stats",
+      "parentId": "fld_study",
+      "modified": 1700000000000,
+      "created": 1700000000000,
+      "url": "{{ _.base_url }}/study-sessions/{% response 'body', 'req_create_session', 'b64::JC5pZA==::46b', 'never', 60 %}/stats",
+      "name": "Get Session Statistics",
+      "description": "Get statistics for a study session",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1692000000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    }
+  ]
+}

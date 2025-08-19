@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run frontend tests and linting
+echo "🔍 Running frontend checks..."
+cd frontend
+npm run lint
+npm run test:coverage -- --run --silent
+
+# Run backend tests and formatting
+echo "🔍 Running backend checks..."
+cd ../backend
+cargo fmt -- --check
+cargo clippy -- -D warnings
+cargo test --quiet
+
+echo "✅ All checks passed!"
