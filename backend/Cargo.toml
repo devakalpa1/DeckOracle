@@ -71,7 +71,7 @@ prometheus = "0.13"
 
 [dev-dependencies]
 # Testing
-axum-test = "16"
+axum-test = "17"
 tokio-test = "0.4"
 wiremock = "0.6"
 pretty_assertions = "1"
