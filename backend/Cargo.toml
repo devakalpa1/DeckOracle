@@ -62,7 +62,7 @@ futures-util = "0.3"
 tokio-cron-scheduler = "0.11"
 
 # Metrics & monitoring
-prometheus = "0.13"
+prometheus = "0.14"
 
 # Machine learning (optional)
 # candle-core = { version = "0.7", optional = true }
