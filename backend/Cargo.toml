@@ -46,7 +46,7 @@ rand = "0.8"
 async-trait = "0.1"
 
 # AI & ML
-reqwest = { version = "0.11", features = ["json", "stream"] }
+reqwest = { version = "0.12", features = ["json", "stream"] }
 base64 = "0.22"
 
 # Document processing
